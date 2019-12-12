@@ -5,10 +5,15 @@ namespace App\Application\User;
 
 
 use App\Domain\User\Exception\UserNotFoundException;
+use App\Domain\User\User;
 use App\Domain\User\UserId;
 use App\Domain\User\UserRepository;
 
-class UserDelete
+/**
+ * Class UserOfId
+ * @package App\Application\User
+ */
+class UserOfId
 {
     /**
      * @var UserRepository
@@ -16,7 +21,7 @@ class UserDelete
     private $repository;
 
     /**
-     * UserDelete constructor.
+     * UserOfId constructor.
      * @param UserRepository $repository
      */
     public function __construct(UserRepository $repository)
@@ -26,6 +31,7 @@ class UserDelete
 
     /**
      * @param UserId $id
+     * @return User
      * @throws UserNotFoundException
      */
     public function execute(UserId $id)
@@ -36,6 +42,6 @@ class UserDelete
             throw UserNotFoundException::ofId($id);
         }
 
-        $this->repository->delete($user);
+        return $user;
     }
 }
