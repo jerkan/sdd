@@ -10,12 +10,13 @@ use App\Domain\User\UserRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
+use Symfony\Bridge\Doctrine\Security\User\UserLoaderInterface;
 
 /**
  * Class DoctrineUserRepository
  * @package App\Infrastructure\Persistence\Doctrine\Repository
  */
-class DoctrineUserRepository extends ServiceEntityRepository implements UserRepository
+class DoctrineUserRepository extends ServiceEntityRepository implements UserRepository, UserLoaderInterface
 {
     protected static $entityClass = User::class;
     /**
@@ -55,5 +56,13 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
     {
         $this->em->remove($user);
         $this->em->flush();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    public function loadUserByUsername($username)
+    {
+        return $this->findOneBy(['email' => $username]);
     }
 }

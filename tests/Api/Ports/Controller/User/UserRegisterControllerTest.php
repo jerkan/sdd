@@ -107,9 +107,9 @@ class UserRegisterControllerTest extends WebTestCase
      */
     private function makeRequest(KernelBrowser $client, array $data)
     {
-        $client->request('POST', '/api/user', $data, [], [
+        $client->request('POST', '/auth/register', [], [], [
             'HTTP_CONTENT_TYPE' => 'application/json',
             'HTTP_ACCEPT' => 'application/json'
-        ]);
+        ], json_encode($data));
     }
 }

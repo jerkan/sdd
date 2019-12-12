@@ -23,31 +23,31 @@ class UserAddCommand
      */
     private $userEmail;
     /**
-     * @var UserPassword
-     */
-    private $userPassword;
-    /**
      * @var UserName
      */
     private $userName;
+    /**
+     * @var string
+     */
+    private $plainPassword;
 
     /**
      * UserAddCommand constructor.
      * @param UserId $id
      * @param UserEmail $userEmail
-     * @param UserPassword $userPassword
+     * @param string $plainPassword
      * @param UserName $userName
      */
     public function __construct(
         UserId $id,
         UserEmail $userEmail,
-        UserPassword $userPassword,
+        string $plainPassword,
         UserName $userName
     )
     {
         $this->id = $id;
         $this->userEmail = $userEmail;
-        $this->userPassword = $userPassword;
+        $this->plainPassword = $plainPassword;
         $this->userName = $userName;
     }
 
@@ -68,11 +68,11 @@ class UserAddCommand
     }
 
     /**
-     * @return UserPassword
+     * @return string
      */
-    public function userPassword(): UserPassword
+    public function plainPassword(): string
     {
-        return $this->userPassword;
+        return $this->plainPassword;
     }
 
     /**

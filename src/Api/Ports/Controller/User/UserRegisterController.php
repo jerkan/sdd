@@ -10,7 +10,6 @@ use App\Application\User\UserAddCommand;
 use App\Domain\User\UserEmail;
 use App\Domain\User\UserId;
 use App\Domain\User\UserName;
-use App\Domain\User\UserPassword;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -39,14 +38,13 @@ class UserRegisterController extends AbstractController
     }
 
     /**
-     * @Route("/api/user", name="api_user_register", methods={"POST"})
+     * @Route("/auth/register", name="api_user_register", methods={"POST"})
      * @param Request $request
      * @return JsonResponse
      */
     public function register(Request $request)
     {
         try {
-
             $command = $this->createCommandFromRequest($request);
 
             $user = $this->userAdd->handle($command);
@@ -70,18 +68,21 @@ class UserRegisterController extends AbstractController
     {
         $requiredParameters = ['email', 'password', 'name'];
 
+        $content = json_decode($request->getContent(), true);
+
         foreach ($requiredParameters as $requiredParameter) {
-            if (!$request->get($requiredParameter)) {
+            if (empty($content[$requiredParameter])) {
                 throw new \InvalidArgumentException(sprintf(
                     'Missing required parameter "%s"', $requiredParameter
                 ));
             }
         }
+
         return new UserAddCommand(
             UserId::next(),
-            new UserEmail($request->get('email')),
-            new UserPassword($request->get('password')),
-            new UserName($request->get('name'))
+            new UserEmail($content['email']),
+            $content['password'],
+            new UserName($content['name'])
         );
     }
 }
