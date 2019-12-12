@@ -20,6 +20,9 @@
     "doctrine/common": {
         "version": "v2.11.0"
     },
+    "doctrine/data-fixtures": {
+        "version": "1.4.0"
+    },
     "doctrine/dbal": {
         "version": "v2.10.0"
     },
@@ -36,6 +39,18 @@
             "config/packages/prod/doctrine.yaml",
             "src/Entity/.gitignore",
             "src/Repository/.gitignore"
+        ]
+    },
+    "doctrine/doctrine-fixtures-bundle": {
+        "version": "3.0",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.0",
+            "ref": "fc52d86631a6dfd9fdf3381d0b7e3df2069e51b3"
+        },
+        "files": [
+            "src/DataFixtures/AppFixtures.php"
         ]
     },
     "doctrine/doctrine-migrations-bundle": {
@@ -81,6 +96,9 @@
     "jdorn/sql-formatter": {
         "version": "v1.2.17"
     },
+    "liip/test-fixtures-bundle": {
+        "version": "1.6.0"
+    },
     "ocramius/package-versions": {
         "version": "1.4.2"
     },
@@ -114,6 +132,9 @@
             "config/packages/sensio_framework_extra.yaml"
         ]
     },
+    "symfony/browser-kit": {
+        "version": "v4.4.1"
+    },
     "symfony/cache": {
         "version": "v4.4.1"
     },
@@ -136,6 +157,9 @@
             "config/bootstrap.php"
         ]
     },
+    "symfony/css-selector": {
+        "version": "v4.4.1"
+    },
     "symfony/debug": {
         "version": "v4.4.1"
     },
@@ -143,6 +167,9 @@
         "version": "v4.4.1"
     },
     "symfony/doctrine-bridge": {
+        "version": "v4.4.1"
+    },
+    "symfony/dom-crawler": {
         "version": "v4.4.1"
     },
     "symfony/dotenv": {

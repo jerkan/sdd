@@ -3,25 +3,33 @@
 
 namespace App\Domain\User;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * Class User
  * @package App\Domain\User
+ * @ORM\Entity(repositoryClass="App\Infrastructure\Persistence\Doctrine\Repository\DoctrineUserRepository")
  */
 class User
 {
     /**
+     * @ORM\Id
+     * @ORM\Column(type="user_id")
      * @var UserId
      */
     private $id;
     /**
+     * @ORM\Column(type="user_email")
      * @var UserEmail
      */
     private $email;
     /**
+     * @ORM\Column(type="user_password")
      * @var UserPassword
      */
     private $password;
     /**
+     * @ORM\Column(type="user_name")
      * @var UserName
      */
     private $name;
