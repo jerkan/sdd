@@ -77,4 +77,28 @@ class User
     {
         return $this->name;
     }
+
+    /**
+     * @param UserEmail $email
+     */
+    public function setEmail(UserEmail $email): void
+    {
+        $this->email = $email;
+    }
+
+    /**
+     * @param UserPassword $password
+     */
+    public function setPassword(UserPassword $password): void
+    {
+        $this->password = $password;
+    }
+
+    /**
+     * @param UserName $name
+     */
+    public function setName(UserName $name): void
+    {
+        $this->name = $name;
+    }
 }
