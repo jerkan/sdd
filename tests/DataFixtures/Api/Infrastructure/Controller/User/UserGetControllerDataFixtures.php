@@ -15,14 +15,15 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class UserLoginControllerDataFixtures
+ * Class UserGetControllerDataFixtures
  * @package App\Tests\DataFixtures\Api\Infrastructure\Controller\User
  */
-class UserLoginControllerDataFixtures extends Fixture implements ContainerAwareInterface
+class UserGetControllerDataFixtures extends Fixture implements ContainerAwareInterface
 {
-    const USER_EMAIL = 'user2@mailinator.com';
+    const USER_EMAIL = 'user@mailinator.com';
     const USER_NAME = 'name';
     const USER_PASSWORD = 'password';
+
     /**
      * @var ContainerInterface
      */
@@ -57,4 +58,5 @@ class UserLoginControllerDataFixtures extends Fixture implements ContainerAwareI
     {
         $this->container = $container;
     }
+
 }

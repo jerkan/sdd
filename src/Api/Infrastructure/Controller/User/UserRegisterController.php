@@ -5,11 +5,11 @@ namespace App\Api\Infrastructure\Controller\User;
 
 
 use App\Api\Domain\User;
-use App\Application\User\UserAdd;
-use App\Application\User\UserAddCommand;
-use App\Domain\User\UserEmail;
-use App\Domain\User\UserId;
-use App\Domain\User\UserName;
+use App\Shared\Application\User\UserAdd;
+use App\Shared\Application\User\UserAddCommand;
+use App\Shared\Domain\User\UserEmail;
+use App\Shared\Domain\User\UserId;
+use App\Shared\Domain\User\UserName;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;

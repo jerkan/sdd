@@ -7,7 +7,6 @@ namespace App\Tests\Api\Infrastructure\Controller\User;
 use App\Tests\Api\Infrastructure\Controller\ApiControllerWebTestCase;
 use App\Tests\DataFixtures\Api\Infrastructure\Controller\User\UserLoginControllerDataFixtures;
 use Liip\TestFixturesBundle\Test\FixturesTrait;
-use Symfony\Bundle\FrameworkBundle\KernelBrowser;
 use Symfony\Component\HttpFoundation\Response;
 
 /**

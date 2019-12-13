@@ -1,13 +1,13 @@
 security:
     encoders:
-        App\Domain\User\User:
+        App\Shared\Domain\User\User:
             algorithm: auto
 
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         jwt:
             entity:
-                class: App\Domain\User\User
+                class: App\Shared\Domain\User\User
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -28,7 +28,7 @@ security:
             anonymous: true
 
         api:
-            pattern:   ^/api
+            pattern:   ^/user
             stateless: true
             anonymous: false
             provider: jwt

@@ -37,10 +37,10 @@ class User
     }
 
     /**
-     * @param \App\Domain\User\User $user
+     * @param \App\Shared\Domain\User\User $user
      * @return User
      */
-    public static function fromUser(\App\Domain\User\User $user)
+    public static function fromUser(\App\Shared\Domain\User\User $user)
     {
         return new self(
             (string)$user->id(),

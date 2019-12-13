@@ -6,10 +6,10 @@ doctrine:
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '5.7'
         types:
-            user_id: App\Infrastructure\Persistence\Doctrine\Type\UserIdType
-            user_email: App\Infrastructure\Persistence\Doctrine\Type\UserEmailType
-            user_password: App\Infrastructure\Persistence\Doctrine\Type\UserPasswordType
-            user_name: App\Infrastructure\Persistence\Doctrine\Type\UserNameType
+            user_id: App\Shared\Infrastructure\Persistence\Doctrine\Type\UserIdType
+            user_email: App\Shared\Infrastructure\Persistence\Doctrine\Type\UserEmailType
+            user_password: App\Shared\Infrastructure\Persistence\Doctrine\Type\UserPasswordType
+            user_name: App\Shared\Infrastructure\Persistence\Doctrine\Type\UserNameType
     orm:
         auto_generate_proxy_classes: true
         naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -18,6 +18,6 @@ doctrine:
             App:
                 is_bundle: false
                 type: annotation
-                dir: '%kernel.project_dir%/src/Domain'
-                prefix: 'App\Domain'
+                dir: '%kernel.project_dir%/src/Shared/Domain'
+                prefix: 'App\Shared\Domain'
                 alias: App
