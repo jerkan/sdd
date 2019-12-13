@@ -4,6 +4,8 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    user_image_dir: '%kernel.project_dir%/public/images/'
+    user_image_base_url: '%env(USER_IMAGE_BASE_URL)%'
 
 services:
     # default configuration for services in *this* file
@@ -29,3 +31,6 @@ services:
     App\Tests\DataFixtures\:
         resource: '../tests/DataFixtures'
         tags: ['doctrine.fixture.orm']
+
+    App\Shared\Infrastructure\Persistence\Filesystem\UserImage\LocalUserImageRepository:
+        arguments: ['%user_image_dir%', '%user_image_base_url%']
