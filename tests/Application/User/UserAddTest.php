@@ -17,6 +17,7 @@ use App\Tests\Domain\User\UserPasswordMother;
 use Faker\Factory;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserAddTest
@@ -28,11 +29,20 @@ class UserAddTest extends TestCase
      * @var MockObject|UserRepository
      */
     private $repository;
+    /**
+     * @var MockObject|UserPasswordEncoderInterface
+     */
+    private $userPasswordEncoder;
+    /**
+     * @var \Faker\Generator
+     */
+    private $faker;
 
     protected function setUp()
     {
         $this->repository = $this->createMock(UserRepository::class);
-        $faker = Factory::create();
+        $this->userPasswordEncoder = $this->createMock(UserPasswordEncoderInterface::class);
+        $this->faker = Factory::create();
     }
 
     /**
@@ -40,25 +50,30 @@ class UserAddTest extends TestCase
      */
     public function shouldAddUser()
     {
-        $id           = UserId::next();
-        $userEmail    = UserEmailMother::random();
-        $userPassword = UserPasswordMother::random();
-        $userName     = UserNameMother::random();
+        $id            = UserId::next();
+        $userEmail     = UserEmailMother::random();
+        $plainPassword = 'password';
+        $userName      = UserNameMother::random();
 
         $this->repository
             ->expects($this->once())
             ->method('save');
 
+        $this->userPasswordEncoder
+            ->method('encodePassword')
+            ->willReturn($this->faker->password);
+        
         $service = $this->getService();
 
-        $command = $this->getCommand($id, $userEmail, $userPassword, $userName);
+        $command = $this->getCommand($id, $userEmail, $plainPassword, $userName);
 
         $user = $service->handle($command);
 
         $this->assertSame($id, $user->id());
         $this->assertSame($userEmail, $user->email());
-        $this->assertSame($userPassword, $user->password());
         $this->assertSame($userName, $user->name());
+
+        $this->assertNotNull($user->password());
     }
 
     /**
@@ -66,23 +81,26 @@ class UserAddTest extends TestCase
      */
     private function getService()
     {
-        return new UserAdd($this->repository);
+        return new UserAdd(
+            $this->repository,
+            $this->userPasswordEncoder
+        );
     }
 
     /**
      * @param UserId $id
      * @param UserEmail $userEmail
-     * @param UserPassword $userPassword
+     * @param string $plainPassword
      * @param UserName $userName
      * @return UserAddCommand
      */
     private function getCommand(
         UserId $id,
         UserEmail $userEmail,
-        UserPassword $userPassword,
+        string $plainPassword,
         UserName $userName
     )
     {
-        return new UserAddCommand($id, $userEmail, $userPassword, $userName);
+        return new UserAddCommand($id, $userEmail, $plainPassword, $userName);
     }
 }
