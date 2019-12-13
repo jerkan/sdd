@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Tests\Api\Ports\Controller\User;
+namespace App\Tests\Api\Infrastructure\Controller\User;
 
 
 use Faker\Factory;
@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class UserRegisterControllerTest
- * @package App\Tests\Api\Ports\Controller\User
+ * @package App\Tests\Api\Infrastructure\Controller\User
  */
 class UserRegisterControllerTest extends WebTestCase
 {

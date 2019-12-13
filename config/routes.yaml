@@ -6,4 +6,4 @@ api_login_check:
     methods: [POST]
 
 api:
-    resource: '../src/Api/Ports/Controller'
+    resource: '../src/Api/Infrastructure/Controller'

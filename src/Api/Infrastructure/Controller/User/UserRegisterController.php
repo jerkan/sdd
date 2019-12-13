@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Api\Ports\Controller\User;
+namespace App\Api\Infrastructure\Controller\User;
 
 
 use App\Api\Domain\User;
@@ -19,7 +19,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * Class UserRegisterController
- * @package App\Api\Ports\Controller\User
+ * @package App\Api\Infrastructure\Controller\User
  */
 class UserRegisterController extends AbstractController
 {

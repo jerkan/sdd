@@ -1,3 +1,3 @@
 controllers:
-    resource: ../../src/Api/Ports/Controller/
+    resource: ../../src/Api/Infrastructure/Controller/
     type: annotation

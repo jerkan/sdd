@@ -62,7 +62,7 @@ class UserAddTest extends TestCase
         $this->userPasswordEncoder
             ->method('encodePassword')
             ->willReturn($this->faker->password);
-        
+
         $service = $this->getService();
 
         $command = $this->getCommand($id, $userEmail, $plainPassword, $userName);
