@@ -10,7 +10,6 @@ use App\Shared\Domain\User\Exception\UserNotFoundException;
 use App\Shared\Domain\User\UserEmail;
 use App\Shared\Domain\User\UserId;
 use App\Shared\Domain\User\UserName;
-use App\Shared\Domain\User\UserPassword;
 use App\Shared\Domain\User\UserRepository;
 use App\Tests\Shared\Domain\User\UserEmailMother;
 use App\Tests\Shared\Domain\User\UserMother;
@@ -18,6 +17,7 @@ use App\Tests\Shared\Domain\User\UserNameMother;
 use App\Tests\Shared\Domain\User\UserPasswordMother;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 /**
  * Class UserUpdateTest
@@ -29,11 +29,15 @@ class UserUpdateTest extends TestCase
      * @var MockObject|UserRepository
      */
     private $repository;
-
+    /**
+     * @var MockObject|UserPasswordEncoderInterface
+     */
+    private $passwordEncoder;
 
     protected function setUp()
     {
         $this->repository = $this->createMock(UserRepository::class);
+        $this->passwordEncoder = $this->createMock(UserPasswordEncoderInterface::class);
     }
 
     /**
@@ -55,17 +59,15 @@ class UserUpdateTest extends TestCase
 
         $service = $this->getService();
 
-        $userEmail    = UserEmailMother::random();
-        $userPassword = UserPasswordMother::random();
-        $userName     = UserNameMother::random();
+        $userEmail = UserEmailMother::random();
+        $userName  = UserNameMother::random();
 
-        $command = $this->getCommand($user->id(), $userEmail, $userPassword, $userName);
+        $command = $this->getCommand($user->id(), $userEmail, $userName);
 
         $userUpdated = $service->handle($command);
 
         $this->assertSame($user->id(), $userUpdated->id());
         $this->assertSame($userEmail, $userUpdated->email());
-        $this->assertSame($userPassword, $userUpdated->password());
         $this->assertSame($userName, $userUpdated->name());
     }
 
@@ -80,11 +82,10 @@ class UserUpdateTest extends TestCase
 
         $service = $this->getService();
 
-        $userEmail    = UserEmailMother::random();
-        $userPassword = UserPasswordMother::random();
-        $userName     = UserNameMother::random();
+        $userEmail = UserEmailMother::random();
+        $userName  = UserNameMother::random();
 
-        $command = $this->getCommand($user->id(), $userEmail, $userPassword, $userName);
+        $command = $this->getCommand($user->id(), $userEmail, $userName);
 
         $service->handle($command);
     }
@@ -93,28 +94,34 @@ class UserUpdateTest extends TestCase
      */
     private function getService()
     {
-        return new UserUpdate($this->repository);
+        return new UserUpdate(
+            $this->repository,
+            $this->passwordEncoder
+        );
     }
 
     /**
      * @param UserId $id
-     * @param UserEmail $userEmail
-     * @param UserPassword $userPassword
-     * @param UserName $userName
+     * @param UserEmail|null $userEmail
+     * @param UserName|null $userName
+     * @param string|null $previousPassword
+     * @param string|null $plainPassword
      * @return UserUpdateCommand
      */
     private function getCommand(
         UserId $id,
-        UserEmail $userEmail,
-        UserPassword $userPassword,
-        UserName $userName
+        ?UserEmail $userEmail,
+        ?UserName $userName,
+        string $previousPassword = null,
+        string $plainPassword = null
     )
     {
         return new UserUpdateCommand(
             $id,
             $userEmail,
-            $userPassword,
-            $userName
+            $userName,
+            $previousPassword,
+            $plainPassword
         );
     }
 }

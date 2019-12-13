@@ -6,7 +6,6 @@ namespace App\Shared\Application\User;
 use App\Shared\Domain\User\UserEmail;
 use App\Shared\Domain\User\UserId;
 use App\Shared\Domain\User\UserName;
-use App\Shared\Domain\User\UserPassword;
 
 /**
  * Class UserUpdateCommand
@@ -19,36 +18,43 @@ class UserUpdateCommand
      */
     private $id;
     /**
-     * @var UserEmail
+     * @var UserEmail|null
      */
     private $userEmail;
     /**
-     * @var UserPassword
-     */
-    private $userPassword;
-    /**
-     * @var UserName
+     * @var UserName|null
      */
     private $userName;
+    /**
+     * @var string|null
+     */
+    private $previousPassword;
+    /**
+     * @var string|null
+     */
+    private $plainPassword;
 
     /**
      * UserUpdateCommand constructor.
      * @param UserId $id
-     * @param UserEmail $userEmail
-     * @param UserPassword $userPassword
-     * @param UserName $userName
+     * @param UserEmail|null $userEmail
+     * @param UserName|null $userName
+     * @param string|null $previousPassword
+     * @param string|null $plainPassword
      */
     public function __construct(
         UserId $id,
-        UserEmail $userEmail,
-        UserPassword $userPassword,
-        UserName $userName
+        UserEmail $userEmail = null,
+        UserName $userName = null,
+        string $previousPassword = null,
+        string $plainPassword = null
     )
     {
-        $this->id = $id;
-        $this->userEmail = $userEmail;
-        $this->userPassword = $userPassword;
-        $this->userName = $userName;
+        $this->id               = $id;
+        $this->userEmail        = $userEmail;
+        $this->userName         = $userName;
+        $this->previousPassword = $previousPassword;
+        $this->plainPassword    = $plainPassword;
     }
 
     /**
@@ -60,26 +66,34 @@ class UserUpdateCommand
     }
 
     /**
-     * @return UserEmail
+     * @return UserEmail|null
      */
-    public function userEmail(): UserEmail
+    public function userEmail(): ?UserEmail
     {
         return $this->userEmail;
     }
 
     /**
-     * @return UserPassword
+     * @return UserName|null
      */
-    public function userPassword(): UserPassword
+    public function userName(): ?UserName
     {
-        return $this->userPassword;
+        return $this->userName;
     }
 
     /**
-     * @return UserName
+     * @return string|null
      */
-    public function userName(): UserName
+    public function previousPassword(): ?string
     {
-        return $this->userName;
+        return $this->previousPassword;
+    }
+
+    /**
+     * @return string|null
+     */
+    public function plainPassword(): ?string
+    {
+        return $this->plainPassword;
     }
 }

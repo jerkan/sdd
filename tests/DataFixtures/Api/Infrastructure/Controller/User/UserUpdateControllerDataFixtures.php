@@ -15,11 +15,12 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class UserGetControllerDataFixtures
+ * Class UserUpdateControllerDataFixtures
  * @package App\Tests\DataFixtures\Api\Infrastructure\Controller\User
  */
-class UserGetControllerDataFixtures extends Fixture implements ContainerAwareInterface
+class UserUpdateControllerDataFixtures extends Fixture implements ContainerAwareInterface
 {
+    const USER_ID = '2ee412eb-f0dc-4503-a415-07ed2bd48b22';
     const USER_EMAIL = 'user@mailinator.com';
     const USER_NAME = 'name';
     const USER_PASSWORD = 'password';
@@ -39,7 +40,7 @@ class UserGetControllerDataFixtures extends Fixture implements ContainerAwareInt
         $password = self::USER_PASSWORD;
 
         $user = new User(
-            UserId::next(),
+            new UserId(self::USER_ID),
             new UserEmail(self::USER_EMAIL),
             new UserPassword('dummy'),
             new UserName(self::USER_NAME)

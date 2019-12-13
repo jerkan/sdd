@@ -45,7 +45,7 @@ class DoctrineUserRepository extends ServiceEntityRepository implements UserRepo
      */
     public function ofId(UserId $id): ?User
     {
-        return $this->getEntityManager()->getRepository(self::$entityClass)->ofId($id);
+        return $this->em->find(self::$entityClass, $id);
     }
 
     /**
